@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { decode } from 'html-entities';
 
 const Item = ({ item }) => {
   const {
@@ -29,6 +30,8 @@ const Item = ({ item }) => {
     levelClass = 'level-high';
   }
 
+  const decodedTitle = decode(title);
+
   return (
     <div className="item">
       <div className="item-image">
@@ -38,7 +41,9 @@ const Item = ({ item }) => {
       </div>
       <div className="item-details">
         <p className="item-title">
-          {title.length > 50 ? `${title.substr(0, 50)}...` : title}
+          {decodedTitle.length > 50
+            ? `${decodedTitle.substr(0, 50)}...`
+            : decodedTitle}
         </p>
         <p className="item-price">{priceStr}</p>
         <p className={`item-quantity ${levelClass}`}>{quantity} left</p>
